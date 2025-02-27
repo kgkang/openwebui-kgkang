@@ -1,0 +1,58 @@
+ingress:
+  enabled: true
+  class: alb
+  # -- Use appropriate annotations for your Ingress controller, e.g., for NGINX:  
+  annotations: # {}
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    # ALB 인증서 설정
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533616270150:certificate/f75efbcd-8af2-48ac-aeeb-6ac79368e229
+    # External DNS controller를 통한 Route53 설정
+    external-dns.alpha.kubernetes.io/hostname: openwebui.skawstech.com
+
+# nodeSelector:
+#   node_group_name: mng-worker
+#   karpenter.sh/nodepool: worker
+#   kubernetes.io/arch: amd64
+  
+persistence:
+  enabled: true
+  # size: 2Gi
+  # storageClass: ebs-sc-gp3
+
+# extraEnvVars:
+  # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
+  # - name: OPENAI_API_KEY
+  #   value: "0p3n-w3bu!"
+  # valueFrom:
+  #   secretKeyRef:
+  #     name: pipelines-api-key
+  #     key: api-key
+  # - name: OPENAI_API_KEY
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: openai-api-key
+  #       key: api-key
+  # - name: OLLAMA_DEBUG
+  #   value: "1"
+
+# Pipelines chart to extend Open WebUI functionality using Pipelines
+# https://github.com/open-webui/pipelines
+# https://artifacthub.io/packages/helm/open-webui/pipelines
+pipelines:
+  enabled: true
+  ingress:
+    enabled: false
+  persistence:
+    enabled: true
+
+# Ollama Helm chart from https://otwld.github.io/ollama-helm/. 
+# Helm Values : https://github.com/otwld/ollama-helm/#helm-values
+ollama:
+  enabled: false
+
+# Apache Tika to extend Open WebUI
+tika:
+  enabled: false
