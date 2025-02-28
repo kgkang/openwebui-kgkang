@@ -42,11 +42,20 @@ networks:
 $ docker compose up -d -f docker-compose.yaml 
 ```
 
+### docker compose 중지 및 종료
 
-### docker compose 삭제
+```bash
+# 서비스 중지
+$ docker compose stop
+# 서비스 다시 시작
+$ docker compose start
+# 서비스 종료
+$ docker compose down
+# 서비스 종료 (docker volume 같이 삭제)
+$ docker compose down -v
+```
 
-* `docker compose down` 실행 시 볼륨이 자동으로 삭제되도록 하려면, `docker compose down -v` 옵션을 사용
-* 혹은 익명 볼륨을 사용하면 `docker compose down`  시 익명 볼륨이 자동 삭제됨
+* 아래와 같이 익명 볼륨을 사용하면 `docker compose down`  시 익명 볼륨이 자동 삭제됨
 
   ```
   ...
