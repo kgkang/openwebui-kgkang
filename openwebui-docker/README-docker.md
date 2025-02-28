@@ -2,7 +2,8 @@
 
 ### Docker-compose 파일
 
-* volumes에 데이터를 저장하기 위한 자기 local 폴더 명을 설정한다.
+* docker volumes에 데이터를 저장
+* 로컬 폴더에 데이터를 저장할 경우 volumes 부분 주석 부분을 사용해서 실행
 
 ```yaml
 version: "3.8"
@@ -13,7 +14,8 @@ services: # OpenWebUI
     ports:
       - "3000:8080"
     volumes:
-      - /Users/kkg/ai/openwebui-dify/openwebui:/app/backend/data
+      # - /Users/ai/openwebui-dify/openwebui:/app/backend/data
+      - volume_openwebui:/app/backend/data
     restart: always
     networks:
       - shared_bridge_network
@@ -24,13 +26,18 @@ services: # OpenWebUI
     ports:
       - "9099:9099"
     volumes:
-      - /Users/kkg/ai/openwebui-dify/pipelines:/app/pipelines
+      # - /Users/ai/openwebui-dify/pipelines:/app/pipelines
+      - volume_pipelines:/app/pipelines
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: always
     networks:
       - shared_bridge_network
 
+volumes:
+  volume_openwebui:
+  volume_pipelines:
+  
 networks:
   shared_bridge_network:
     driver: bridge
