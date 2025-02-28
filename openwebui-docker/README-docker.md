@@ -42,6 +42,25 @@ networks:
 $ docker compose up -d -f docker-compose.yaml 
 ```
 
+
+### docker compose 삭제
+
+* `docker compose down` 실행 시 볼륨이 자동으로 삭제되도록 하려면, `docker compose down -v` 옵션을 사용
+* 혹은 익명 볼륨을 사용하면 `docker compose down`  시 익명 볼륨이 자동 삭제됨
+
+  ```
+  ...
+  services:
+    openwebui:
+      image: ghcr.io/open-webui/open-webui:main
+      ports:
+        - "3000:8080"
+      volumes:
+        - /shared_data/openwebui  # 익명 볼륨 (자동 삭제됨)
+  ...
+  ```
+
+
 ### OpenWebUI 접속
 
 브라우저에서 http://localhost:3000 접속한다.

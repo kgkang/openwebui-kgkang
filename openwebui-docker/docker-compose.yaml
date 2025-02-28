@@ -6,7 +6,8 @@ services: # OpenWebUI
     ports:
       - "3000:8080"
     volumes:
-      - /Users/kkg/ai/openwebui-dify/openwebui:/app/backend/data
+      # - /Users/ai/openwebui-dify/openwebui:/app/backend/data
+      - volume_openwebui:/app/backend/data
     restart: always
     networks:
       - shared_bridge_network
@@ -17,13 +18,18 @@ services: # OpenWebUI
     ports:
       - "9099:9099"
     volumes:
-      - /Users/kkg/ai/openwebui-dify/pipelines:/app/pipelines
+      # - /Users/ai/openwebui-dify/pipelines:/app/pipelines
+      - volume_pipelines:/app/pipelines
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: always
     networks:
       - shared_bridge_network
 
+volumes:
+  volume_openwebui:
+  volume_pipelines:
+  
 networks:
   shared_bridge_network:
     driver: bridge
