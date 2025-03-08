@@ -45,8 +45,10 @@ networks:
 
 ### docker compose를 통해 로컬 설치하기
 
-```
-$ docker compose up -d -f docker-compose.yaml 
+```bash
+# -d (run in detached mode)
+# -f <docker compose file>, 현 폴더에 docker-compose.yaml 파일이 있으면 생략 가능
+$ docker compose -f docker-compose.yaml up -d
 ```
 
 ### docker compose 중지 및 종료
